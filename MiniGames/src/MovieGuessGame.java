@@ -14,6 +14,9 @@ public class MovieGuessGame {
     private int movieToGuessIndex;
     private int wrongGuesses;
     private boolean win;
+    private static final int rounds = 10;
+    private static int victories = 0;
+    private static int losses = 0;
 
     MovieGuessGame(){
         this.file = new File("movies.txt");
@@ -78,6 +81,10 @@ public class MovieGuessGame {
         // Check is the string to show is completed and is equal to the movie to guess
         if(this.movieToGuess.equals(this.stringToShow.toString())) {
             this.win = true;
+            MovieGuessGame.victories++;
+        }
+        if(this.wrongGuesses >= MovieGuessGame.rounds) {
+            MovieGuessGame.losses++;
         }
     }
 
@@ -95,6 +102,10 @@ public class MovieGuessGame {
                 index = indexOfLetterOccurrence + 1;
             }
         }
+    }
+
+    public int getRounds() {
+        return MovieGuessGame.rounds;
     }
 
     // Gets the number of wrong guesses
@@ -116,4 +127,10 @@ public class MovieGuessGame {
     public String getStringToShow() {
         return this.stringToShow.toString();
     }
+
+    // return the number of victories
+    public int getVictories() { return MovieGuessGame.victories; }
+
+    // return the number of losses
+    public int getLosses() { return MovieGuessGame.losses; }
 }
