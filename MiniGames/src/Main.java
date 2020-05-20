@@ -32,7 +32,7 @@ public class Main {
 
                 MovieGuessGame movieGame = new MovieGuessGame();
 
-                while(movieGame.getWrongGuesses() < 10 && !movieGame.getWinStatus()){
+                while(movieGame.getWrongGuesses() < movieGame.getRounds() && !movieGame.getWinStatus()){
                     System.out.println("\n===================================================================");
                     System.out.println("You are guessing: " + movieGame.getStringToShow());
                     System.out.println("You have guessed (" + movieGame.getWrongGuesses() + ") wrong letter(s).");
@@ -57,6 +57,8 @@ public class Main {
                 } else {
                     System.out.println("You lost! The movie to guess was \"" + movieGame.getMovieToGuess() + "\".");
                 }
+                System.out.println("You won " + movieGame.getVictories() + " time(s).");
+                System.out.println("You lost " + movieGame.getLosses() + " time(s).");
                 System.out.println("===================================================================");
 
             } else if (gameSelection.equals("oae") || (gameSelection.equals("again") && lastGame.equals("oae"))) {
