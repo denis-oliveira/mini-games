@@ -4,25 +4,30 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        String gameSelection;
+        String gameSelection = " ";
+        String lastGame = " ";
         char cont;
 
         while (true) {
 
-            gameSelection = " ";
-            while (!gameSelection.equals("movie") && !gameSelection.equals("oae")) {
-                System.out.println("Choose a game to play. Type \"movie\" to play Movie Guess game or \"oae\" to play Odds and Even game.");
-                try {
-                    gameSelection = scanner.next().toLowerCase();
-                } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("Please type a valid input.");
+            if(gameSelection.equals(" ") || gameSelection.equals("menu")) {
+                gameSelection = " ";
+                while (!gameSelection.equals("movie") && !gameSelection.equals("oae")) {
+                    System.out.println("Choose a game to play. Type \"movie\" to play Movie Guess game or \"oae\" to " +
+                            "play Odds and Even game.");
+                    try {
+                        gameSelection = scanner.next().toLowerCase();
+                    } catch (StringIndexOutOfBoundsException e) {
+                        System.out.println("Please type a valid input.");
+                    }
+                    if(!gameSelection.equals("movie") && !gameSelection.equals("oae")) {
+                        System.out.println("Please, type a valid option.");
+                    }
                 }
-                if(!gameSelection.equals("movie") && !gameSelection.equals("oae")) {
-                    System.out.println("Please, type a valid option.");
-                }
+                lastGame = gameSelection;
             }
 
-            if(gameSelection.equals("movie")) {
+            if(gameSelection.equals("movie") || (gameSelection.equals("again") && lastGame.equals("movie"))) {
                 System.out.println("Game: Guess the movie");
 
                 MovieGuessGame movieGame = new MovieGuessGame();
@@ -54,7 +59,7 @@ public class Main {
                 }
                 System.out.println("===================================================================");
 
-            } else if (gameSelection.equals("oae")) {
+            } else if (gameSelection.equals("oae") || (gameSelection.equals("again") && lastGame.equals("oae"))) {
 
                 System.out.println("Game: Odds and Even");
                 String userOddOrEvenChoice = " ";
@@ -81,17 +86,21 @@ public class Main {
                 oddsAndEvenGame.play(userMove, userOddOrEvenChoice);
             }
 
-            cont = ' ';
-            while(cont != 'Y' && cont != 'N') {
-                System.out.println("Do you want to play again? (\"Y\"/\"N\")");
+            gameSelection = " ";
+            while (!gameSelection.equals("again") && !gameSelection.equals("menu") && !gameSelection.equals("end")) {
+                System.out.println("Type \"menu\" to go to game selection menu or \"again\" to play the same game " +
+                        "again or \"end\" to stop playing.");
                 try {
-                    cont = scanner.next().toUpperCase().charAt(0);
+                    gameSelection = scanner.next().toLowerCase();
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("Please type a valid input.");
                 }
+                if(!gameSelection.equals("again") && !gameSelection.equals("menu") && !gameSelection.equals("end")) {
+                    System.out.println("Please, type a valid option.");
+                }
             }
 
-            if(cont == 'N') {
+            if(gameSelection.equals("end")) {
                 break;
             }
         }
